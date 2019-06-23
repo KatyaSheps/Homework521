@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickLogin(View view) {
         // Получим входные байты из файла которых нужно прочесть.
-        FileInputStream fileInputStream = openFileInput(filename);
+        FileInputStream fileInputStream = openFileInput(filename); // какой именно файл открывать? С паролями или с логинами?
 // Декодируем байты в символы
         InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
 // Читаем данные из потока ввода, буферизуя символы так, чтобы обеспечить эффективную запись отдельных символов.
