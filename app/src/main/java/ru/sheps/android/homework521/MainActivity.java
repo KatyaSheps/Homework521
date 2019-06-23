@@ -7,10 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickLogin(View view) {
+        // Получим входные байты из файла которых нужно прочесть.
+        FileInputStream fileInputStream = openFileInput(filename);
+// Декодируем байты в символы
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+// Читаем данные из потока ввода, буферизуя символы так, чтобы обеспечить эффективную запись отдельных символов.
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        reader.readLine();
     }
 
     public void onClickRegistration(View view) {
