@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         BufferedReader readerPassword = new BufferedReader(inputStreamReaderPassword);
         String savedPassword = readerPassword.readLine();
 
-        if (savedLogin.equals(editLogin.getText()) && savedPassword.equals(editPassword.getText()))
+        if (editLogin.getText().toString().equals(savedLogin) && editPassword.getText().toString().equals(savedPassword))
         {
             Toast.makeText(this, "Верный логин и пароль", Toast.LENGTH_SHORT).show();
         } else {
