@@ -27,21 +27,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         editLogin = findViewById(R.id.editLogin);
         editPassword = findViewById(R.id.editPassword);
-        Button btnLogin = findViewById(R.id.btnLogin);
-        Button btnPassword = findViewById(R.id.btnRegistration);
 
     }
 
     public void onClickLogin(View view) throws IOException {
-        FileInputStream fileInputStreamLogin = openFileInput("login");
-        InputStreamReader inputStreamReaderLofin = new InputStreamReader(fileInputStreamLogin);
-        BufferedReader readerLogin = new BufferedReader(inputStreamReaderLofin);
-        String savedLogin = readerLogin.readLine();
 
-        FileInputStream fileInputStreamPassword = openFileInput("password");
-        InputStreamReader inputStreamReaderPassword = new InputStreamReader(fileInputStreamPassword);
-        BufferedReader readerPassword = new BufferedReader(inputStreamReaderPassword);
-        String savedPassword = readerPassword.readLine();
+        String savedLogin = readSavedData("login");
+        String savedPassword = readSavedData("password");
 
         if (editLogin.getText().toString().equals(savedLogin) && editPassword.getText().toString().equals(savedPassword))
         {
@@ -50,6 +42,23 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Неверный логин и пароль", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private String readSavedData(String fileName) {
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = openFileInput(fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+        BufferedReader reader = new BufferedReader(inputStreamReader);
+        try {
+            return reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void onClickRegistration(View view) {
@@ -89,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            Toast.makeText(this, "Логин и пароль успешно сохранены", Toast.LENGTH_SHORT).show();
         }
     }
 }
