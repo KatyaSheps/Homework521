@@ -18,8 +18,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity {
- EditText editLogin;
- EditText editPassword;
+    private static final String LOGIN_FILE_NAME = "login";
+    private static final String PASSWORD_FILE_NAME = "password";
+    EditText editLogin;
+    EditText editPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +30,36 @@ public class MainActivity extends AppCompatActivity {
         editLogin = findViewById(R.id.editLogin);
         editPassword = findViewById(R.id.editPassword);
 
+        findViewById(R.id.btnRegistration).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRegistration(v);
+            }
+        });
+
+        findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    onClickLogin(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     public void onClickLogin(View view) throws IOException {
 
-        String savedLogin = readSavedData("login");
-        String savedPassword = readSavedData("password");
+        String savedLogin = readSavedData(LOGIN_FILE_NAME);
+        String savedPassword = readSavedData(PASSWORD_FILE_NAME);
 
         if (editLogin.getText().toString().equals(savedLogin) && editPassword.getText().toString().equals(savedPassword))
         {
-            Toast.makeText(this, "Верный логин и пароль", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.right_login_and_password, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Неверный логин и пароль", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.not_right_login_and_password, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -61,14 +81,15 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
+
     public void onClickRegistration(View view) {
         FileOutputStream fileLogins = null;
         FileOutputStream fileLPassword = null;
         if (editLogin.getText().equals("") || editPassword.getText().equals("")) {
-            Toast.makeText(this, "Введите логин и пароль", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.not_writen_login_and_password, Toast.LENGTH_SHORT).show();
         } else {
             try {
-                fileLogins = openFileOutput("login", MODE_PRIVATE);
+                fileLogins = openFileOutput(LOGIN_FILE_NAME, MODE_PRIVATE);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -81,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             try {
-                fileLPassword = openFileOutput("password", MODE_PRIVATE);
+                fileLPassword = openFileOutput(PASSWORD_FILE_NAME, MODE_PRIVATE);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -98,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Toast.makeText(this, "Логин и пароль успешно сохранены", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.login_and_password_saved_successfully, Toast.LENGTH_SHORT).show();
         }
     }
 }

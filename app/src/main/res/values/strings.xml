@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Homework.5.2.1</string>
+    <string name="not_writen_login_and_password">Введите логин и пароль</string>
+    <string name="login_and_password_saved_successfully">Логин и пароль успешно сохранены</string>
+    <string name="right_login_and_password">Верный логин и пароль</string>
+    <string name="not_right_login_and_password">Неверный логин и пароль</string>
+    <string name="registration">REGISTRATION</string>
+    <string name="login">LOGIN</string>
+    <string name="password">Password</string>
 </resources>
